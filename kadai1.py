@@ -23,4 +23,12 @@ f_list = file.readlines()
 file.close()
 # リストから1行ずつ読み込む
 for f_line in f_list:
-    print(f_line)
+    source.append(f_line)
+    print(f_line) 
+
+# data1csvに書き込み
+import csv
+f = open('utf8.data1.csv', 'w', encoding='utf8')
+writer = csv.writer(f)
+writer.writerow(source)
+f.close()
