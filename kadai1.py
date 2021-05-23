@@ -17,3 +17,10 @@ def search():
         
 if __name__ == "__main__":
     search()
+
+file = open("C:\\Users\\OP745\\Desktop\\data.csv", 'r')
+f_list = file.readlines()
+file.close()
+# リストから1行ずつ読み込む
+for f_line in f_list:
+    print(f_line)
