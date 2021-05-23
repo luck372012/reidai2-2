@@ -12,7 +12,8 @@ def search():
         print("{}が見つかりした".format(word))
         return
     print("{}が見つかりません".format(word))
-
+    source.append(word)
+    print(source)
         
 if __name__ == "__main__":
     search()
