@@ -18,17 +18,14 @@ def search():
 if __name__ == "__main__":
     search()
 
-file = open("C:\\Users\\OP745\\Desktop\\data.csv", 'r')
-f_list = file.readlines()
-file.close()
-# リストから1行ずつ読み込む
-for f_line in f_list:
-    source.append(f_line)
-    print(f_line) 
+# dataを読み込み
+with open("./data.csv") as f:
+    l_strip = [s.strip() for s in f.readlines()]
+    source.append(l_strip)
+    print(l_strip)
 
 # data1csvに書き込み
 import csv
-f = open('utf8.data1.csv', 'w', encoding='utf8')
-writer = csv.writer(f)
-writer.writerow(source)
-f.close()
+with open("utf8.data1.csv", mode="w", encoding='utf8') as f:
+    writer = csv.writer(f)
+    writer.writerow(source)
