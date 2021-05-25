@@ -24,9 +24,13 @@ def read_csv():
        print(l_strip)
 
 # data1csvに書き込み
+def wrire_csv():
     with open("utf8.data1.csv", mode="w", encoding='utf8') as f:
        writer = csv.writer(f)
        writer.writerow(source)
       
 if __name__ == "__main__":
-     search()    
+     search() 
+     read_csv()
+     print(source)
+     wrire_csv()   
