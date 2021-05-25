@@ -1,3 +1,4 @@
+import csv
 ### 検索ツールサンプル
 ### これをベースに課題の内容を追記してください
 
@@ -5,7 +6,6 @@
 source=["ねずこ","たんじろう","きょうじゅろう","ぎゆう","げんや","かなお","ぜんいつ"]
 
 ### 検索ツール
-import csv
 def search():
     word =input("鬼滅の登場人物の名前を入力してください >>> ")
   
@@ -17,6 +17,7 @@ def search():
     print(source)
   
 # dataを読み込み
+def read_csv():
     with open("./data.csv") as f:
        l_strip = [s.strip() for s in f.readlines()]
        source.append(l_strip)
