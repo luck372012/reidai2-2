@@ -15,7 +15,7 @@ def search():
     print("{}が見つかりません".format(word))
     source.append(word)
     print(source)
-  
+
 # dataを読み込み
 def read_csv():
     with open("./data.csv") as f:
