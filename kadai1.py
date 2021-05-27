@@ -17,11 +17,12 @@ def search():
     print(source)
 
 # dataを読み込み
-def read_csv():
+def read_csv(csv_path,source):
     with open("./data.csv") as f:
        l_strip = [s.strip() for s in f.readlines()]
        source.append(l_strip)
        print(l_strip)
+    return source
 
 # data1csvに書き込み
 def wrire_csv():
@@ -30,7 +31,7 @@ def wrire_csv():
        writer.writerow(source)
       
 if __name__ == "__main__":
-     search() 
-     read_csv()
-     print(source)
-     wrire_csv()   
+    search() 
+    source = read_csv("csv_path",source)
+    print(source)
+    wrire_csv()  
