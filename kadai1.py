@@ -3,7 +3,7 @@ import csv
 ### これをベースに課題の内容を追記してください
 
 # 検索ソース
-source=["ねずこ","たんじろう","きょうじゅろう","ぎゆう","げんや","かなお","ぜんいつ"]
+source=["csv_path"]
 
 ### 検索ツール
 def search():
@@ -20,8 +20,7 @@ def search():
 def read_csv(csv_path,source):
     with open("./data.csv") as f:
        l_strip = [s.strip() for s in f.readlines()]
-       source.append(l_strip)
-       print(l_strip)
+       source.append(l_strip)      
     return source
 
 # data1csvに書き込み
@@ -31,7 +30,6 @@ def wrire_csv():
        writer.writerow(source)
       
 if __name__ == "__main__":
+    read_csv("csv_path",source)
     search() 
-    source = read_csv("csv_path",source)
-    print(source)
     wrire_csv()  
