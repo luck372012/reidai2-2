@@ -4,7 +4,6 @@ import csv
 
 # 検索ソース
 source=[]
-source=["csv_path"]
 
 ### 検索ツール
 def search():
