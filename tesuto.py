@@ -1,5 +1,8 @@
 import os
 from selenium.webdriver import Chrome, ChromeOptions
+from webdriver_manager.chrome import ChromeDriverManager
+def setup_class(cls):
+    cls.driver = webdriver.Chrome(ChromeDriverManager().install())
 import time
 import pandas as pd
 from bs4 import BeautifulSoup
@@ -26,14 +29,11 @@ def set_driver(driver_path, headless_flg):
     # ChromeのWebDriverオブジェクトを作成する。
     return Chrome(executable_path=os.getcwd() + "/" + driver_path, options=options)
 
-    
-
 # main処理
 
-def main():   
-    # 検索
-    search_keyword = "高収入"
 
+def main():
+    search_keyword = "高収入"
     # driverを起動
     if os.name == 'nt': #Windows
         driver = set_driver("chromedriver.exe", False)
@@ -44,6 +44,8 @@ def main():
     time.sleep(5)
  
     try:
+     
+   
         # ポップアップを閉じる
         driver.execute_script('document.querySelector(".karte-close").click()')
         time.sleep(5)
@@ -59,105 +61,18 @@ def main():
     driver.find_element_by_class_name("topSearch__button").click()
 
     # ページ終了まで繰り返し取得
-    #exp_name_list = []
-   
-
-
-    #exp_kinmuchi_list = []
-
-
-    #検索結果の一番上の会社名を取得
-    #name_list = driver.find_elements_by_class_name("cassetteRecruit__name")
-
-    #name_list = driver.find_elements_by_class_name("body > div.wrapper > div:nth-child(5) > form > div > div.cassetteRecruitRecommend > div > div.cassetteRecruitRecommend__detail > div.cassetteRecruitRecommend__main")
-
-    #1ページ分繰り返し
-    #print(len(name_list))
-    #for name in name_list:
-       #exp_name_list.append(name.text)
-       #print(name.text)
-        
-    # xpathを定義してfind関数で要素をリストで取得(年収)
-
-
-
-
-  
-    list = driver.find_elements_by_css_selector("body > div.wrapper > div:nth-child(5)")
-
-    for j in range(0,len[list]):
-        temp= []
-        temp.append(list[j]) # alist[0] is 'from form' 
-        temp.append('t') # slot for first piece of data 't'
-        temp.append('-') # slot for second piece of data
-    blist=[]
-   
-
- 
-    d = (blist)
-    df = pd.DataFrame(d.values(), index=d.keys())
-    df.to_csv("utf8.data1.csv","a") 
-
-
-
-
-
-
-
-
-       
-    
-
-    # xpathを定義してfind関数で要素をリストで取得(勤務地)
-    #xpath ="//tr[5]/td" 
-    #elems = driver.find_elements_by_xpath(xpath)
-    # 取得した要素を1つずつ表示
-    #for elem in elems:
-       # exp_kinmuchi_list.append(elem.text)
-       # print(elem.text)
-
-    # 次のページクリック   
-    #driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-    #driver.find_element_by_class_name("pager__next").find_element_by_tag_name("a").click()
-
-
-
-    
+    exp_name_list = []
     # 検索結果の一番上の会社名を取得
-    #name_list = driver.find_elements_by_class_name("cassetteRecruit__name")
-  
+    name_list = driver.find_elements_by_class_name("cassetteRecruit__name")
+
     # 1ページ分繰り返し
-    #print(len(name_list))
-    #for name in name_list:
-       # exp_name_list.append(name.text)
-        #print(name.text)
-    
-    # xpathを定義してfind関数で要素をリストで取得(年収)
-    #xpath ="//tr[3]/td" 
-    #elems = driver.find_elements_by_xpath(xpath)
-    # 取得した要素を1つずつ表示
-    #for elem in elems:
-       # exp_neshu_list.append(elem.text)
-       # print(elem.text)
-    
+    print(len(name_list))
+    for name in name_list:
+        exp_name_list.append(name.text)
+        print(name.text)
+        
 
-    # xpathを定義してfind関数で要素をリストで取得(勤務地)
-    #xpath ="//tr[5]/td" 
-   # elems = driver.find_elements_by_xpath(xpath)
-    # 取得した要素を1つずつ表示
-    #for elem in elems:
-        #exp_kinmuchi_list.append(elem.text)
-       # print(elem.text)
-
-    # CSVファイルに出力
-    #d = {'会社名': exp_name_list, '年収': exp_neshu_list}
-   # d = {'会社名': exp_name_list, '勤務先': exp_kinmuchi_list, '年収': exp_neshu_list}
-  #  d = (exp_work_list)
-   # df=pd.DataFrame(d)
-  #  df.to_csv("utf8.data1.csv","a") 
 
 # 直接起動された場合はmain()を起動(モジュールとして呼び出された場合は起動しないようにするため)
 if __name__ == "__main__":
     main()
-    
-    
