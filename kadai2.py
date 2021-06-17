@@ -81,6 +81,10 @@ def main():
     print(len(tables))
 
     for table in tables:
+        tables.append(table.text) 
+        print(table.text)
+
+
         trs = table.find_elements_by_css_selector("tr")
         print(len(trs))
 
