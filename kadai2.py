@@ -77,16 +77,17 @@ def main():
     tables=[]
     trs =[] 
 
-    tables = driver.find_elements_by_css_selector("div.cassetteRecruitRecommend__main > table")
+    tables = driver.find_elements_by_css_selector("div.cassetteRecruit__main ")
     print(len(tables))
 
     for table in tables:
-        tables.append(table.text) 
-        print(table.text)
+        for tr in trs:
+            trs = table.find_elements_by_css_selector("tr")
+            print(len(trs))
 
 
-        trs = table.find_elements_by_css_selector("tr")
-        print(len(trs))
+
+
 
     work_list = trs[2].find_elements_by_css_selector("td")
     sarary_list = trs[4].find_elements_by_css_selector("td")
@@ -122,9 +123,10 @@ def main():
 
 
 
-    tables = driver.find_elements_by_css_selector("div.cassetteRecruitRecommend__main > table")
+    tables = driver.find_elements_by_css_selector("div.cassetteRecruit__main")
     for table in tables:
-        trs = table.find_elements_by_css_selector("tr")
+        for tr in trs:
+            trs = table.find_elements_by_css_selector("tr")
   
     work_list = trs[2].find_elements_by_css_selector("td")
     sarary_list = trs[4].find_elements_by_css_selector("td")
