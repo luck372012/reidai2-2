@@ -96,6 +96,13 @@ def main():
             next_page_link = driver.find_element_by_css_selector(".iconFont--arrowLeft").get_attribute("href")
             driver.get(next_page_link)
 
+            name_list = driver.find_elements_by_css_selector(".cassetteRecruit .cassetteRecruit__name")
+            print(len(name_list))
+
+            for name in name_list:
+                exp_name_list.append(name.text)
+                print(name.text)
+
             tables = driver.find_elements_by_css_selector(".cassetteRecruit .tableCondition")
             print(len(tables))
 
