@@ -58,44 +58,16 @@ def main():
     # 検索ボタンクリック
     driver.find_element_by_class_name("topSearch__button").click()
 
-    #ページ終了まで繰り返し取得
+
     exp_name_list = []
-   
-    # 検索結果の一番上の会社名を取得
-    name_list = driver.find_elements_by_css_selector(".cassetteRecruit .cassetteRecruit__name")
-
-
-    # 1ページ分繰り返し
-    print(len(name_list))
-    for name in name_list:
-        exp_name_list.append(name.text)
-        print(name.text)
-
-    #１ページ目会社情報取得
     exp_work_list=[] 
     exp_sarary_list=[]
     tables=[]
     trs =[] 
 
-    tables = driver.find_elements_by_css_selector(".cassetteRecruit .tableCondition")
-    print(len(tables))
-
-    for table in tables:
-        trs = table.find_elements_by_css_selector("tr")
-        work = trs[2].find_element_by_css_selector("td")
-        sarary = trs[3].find_element_by_css_selector("td")
-        exp_work_list.append(work.text) 
-        exp_sarary_list.append(sarary.text) 
-
-
-    # 次のページクリック   
-    #driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-    # driver.find_element_by_class_name("pager__next").find_element_by_tag_name("a").click()
+   
     while True:
         try:
-            next_page_link = driver.find_element_by_css_selector(".iconFont--arrowLeft").get_attribute("href")
-            driver.get(next_page_link)
-
             name_list = driver.find_elements_by_css_selector(".cassetteRecruit .cassetteRecruit__name")
             print(len(name_list))
 
@@ -114,40 +86,14 @@ def main():
                 exp_sarary_list.append(sarary.text) 
 
 
+            next_page_link = driver.find_element_by_css_selector(".iconFont--arrowLeft").get_attribute("href")
+            driver.get(next_page_link)    
+
+                
+
         except:
             break
-    # Comment:2ページ目以降は、上記処理をwhileループにて繰り返すことで実現する
-    # #２ページ目会社情報取得
-    # name_list = driver.find_elements_by_class_name("cassetteRecruit__name")
-
-
-    # # 1ページ分繰り返し
-    # print(len(name_list))
-    # for name in name_list:
-    #     exp_name_list.append(name.text)
-    #     print(name.text)
-
-
-
-    # tables = driver.find_elements_by_css_selector("div.cassetteRecruit__main")
-    # for table in tables:
-    #     for tr in trs:
-    #         trs = table.find_elements_by_css_selector("tr")
-  
-    # work_list = trs[2].find_elements_by_css_selector("td")
-    # sarary_list = trs[4].find_elements_by_css_selector("td")
-
-    # # 取得した要素を1つずつ表示
-    # print(len(work_list))
-    # for work in work_list:   
-    #     exp_work_list.append(work.text) 
-    #     print(work.text)
     
-    # print(len(sarary_list))
-    # for sarary in sarary_list:   
-    #     exp_sarary_list.append(sarary.text) 
-    #     print(sarary.text)       
-
 
 
     # CSVファイルに出力
