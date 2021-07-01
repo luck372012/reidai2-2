@@ -64,8 +64,7 @@ def main():
     exp_sarary_list=[]
     tables=[]
     trs =[] 
-
-   
+       
     while True:
         try:
             name_list = driver.find_elements_by_css_selector(".cassetteRecruit .cassetteRecruit__name")
@@ -74,6 +73,8 @@ def main():
             for name in name_list:
                 exp_name_list.append(name.text)
                 print(name.text)
+
+
 
             tables = driver.find_elements_by_css_selector(".cassetteRecruit .tableCondition")
             print(len(tables))
@@ -88,18 +89,20 @@ def main():
 
             next_page_link = driver.find_element_by_css_selector(".iconFont--arrowLeft").get_attribute("href")
             driver.get(next_page_link)    
-
-                
-
+              
         except:
             break
+    df = pd.DataFrame()
+    
+    df = df.append(
+        {"会社名": exp_name_list, 
+        "勤務先": exp_work_list,
+        "年収": exp_sarary_list}, 
+        ignore_index=True)
     
 
-
     # CSVファイルに出力
-    df = pd.DataFrame({'会社名': exp_name_list, 
-                       '勤務先': exp_work_list, 
-                       '年収': exp_sarary_list})
+   
     print(df)
     df.to_csv("utf8.data1.csv", mode="w", index=False) 
     driver.quit()
