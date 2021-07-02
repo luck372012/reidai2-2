@@ -64,6 +64,7 @@ def main():
     exp_sarary_list=[]
     tables=[]
     trs =[] 
+    df = pd.DataFrame()
        
     while True:
         try:
@@ -74,7 +75,11 @@ def main():
                 exp_name_list.append(name.text)
                 print(name.text)
 
-
+                df = df.append(
+                   {"会社名": exp_name_list, 
+                    "勤務先": exp_work_list,
+                    "年収": exp_sarary_list}, 
+                      ignore_index=True)    
 
             tables = driver.find_elements_by_css_selector(".cassetteRecruit .tableCondition")
             print(len(tables))
@@ -92,15 +97,7 @@ def main():
               
         except:
             break
-    df = pd.DataFrame()
     
-    df = df.append(
-        {"会社名": exp_name_list, 
-        "勤務先": exp_work_list,
-        "年収": exp_sarary_list}, 
-        ignore_index=True)
-    
-
     # CSVファイルに出力
    
     print(df)
