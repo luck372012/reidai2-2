@@ -58,38 +58,26 @@ def main():
     # 検索ボタンクリック
     driver.find_element_by_class_name("topSearch__button").click()
 
-
-    exp_name_list = []
-    exp_work_list=[] 
-    exp_sarary_list=[]
+ 
     tables=[]
     trs =[] 
     df = pd.DataFrame()
        
     while True:
         try:
-            name_list = driver.find_elements_by_css_selector(".cassetteRecruit .cassetteRecruit__name")
-            print(len(name_list))
-
-            for name in name_list:
-                exp_name_list.append(name.text)
-                print(name.text)
-
-                df = df.append(
-                   {"会社名": exp_name_list, 
-                    "勤務先": exp_work_list,
-                    "年収": exp_sarary_list}, 
-                      ignore_index=True)    
-
+            name_list = driver.find_elements_by_css_selector(".cassetteRecruit .cassetteRecruit__name")        
             tables = driver.find_elements_by_css_selector(".cassetteRecruit .tableCondition")
-            print(len(tables))
-
-            for table in tables:
+            for name,table in zip(name_list, tables): 
+       
                 trs = table.find_elements_by_css_selector("tr")
                 work = trs[2].find_element_by_css_selector("td")
                 sarary = trs[3].find_element_by_css_selector("td")
-                exp_work_list.append(work.text) 
-                exp_sarary_list.append(sarary.text) 
+
+                df = df.append(
+                    {"会社名": name.text, 
+                    "勤務先": work,
+                    "年収": sarary}, 
+                      ignore_index=True) 
 
 
             next_page_link = driver.find_element_by_css_selector(".iconFont--arrowLeft").get_attribute("href")
