@@ -70,8 +70,8 @@ def main():
             for name,table in zip(name_list, tables): 
        
                 trs = table.find_elements_by_css_selector("tr")
-                work = trs[2].find_element_by_css_selector("td")
-                sarary = trs[3].find_element_by_css_selector("td")
+                work = trs[2].find_element_by_css_selector("td").text
+                sarary = trs[3].find_element_by_css_selector("td").text
 
                 df = df.append(
                     {"会社名": name.text, 
