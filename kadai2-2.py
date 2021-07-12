@@ -51,6 +51,7 @@ def main():
         driver.execute_script('document.querySelector(".karte-close").click()')
     except:
         pass
+   
     
     # 検索窓に入力
     driver.find_element_by_class_name(
@@ -62,9 +63,9 @@ def main():
     tables=[]
     trs =[] 
     df = pd.DataFrame()
-       
+  
     while True:
-        try:
+        try:         
             name_list = driver.find_elements_by_css_selector(".cassetteRecruit .cassetteRecruit__name")        
             tables = driver.find_elements_by_css_selector(".cassetteRecruit .tableCondition")
             for name,table in zip(name_list, tables): 
@@ -83,8 +84,9 @@ def main():
             next_page_link = driver.find_element_by_css_selector(".iconFont--arrowLeft").get_attribute("href")
             driver.get(next_page_link)    
               
-        except:
+        except:        
             break
+           
     
     # CSVファイルに出力
    
