@@ -38,7 +38,7 @@ gratuity=[]
 
 for casset in driver.find_elements(By.CLASS_NAME, 'cassetteitem'):
  # 物件名を出力する
-    print(casset.find_element(By.CLASS_NAME, 'cassetteitem_content-title').text)
+    #print(casset.find_element(By.CLASS_NAME, 'cassetteitem_content-title').text)
     name=(casset.find_element(By.CLASS_NAME, 'cassetteitem_content-title').text)
 
  #家賃を出力する
