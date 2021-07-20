@@ -1,5 +1,7 @@
 #モジュールのインポート
+from bs4 import BeautifulSoup
 from time import sleep
+import requests
 import datetime
 import sys
 import pandas as pd
@@ -21,12 +23,17 @@ options.add_argument('--no-sandbox')
 options.add_argument('--disable-dev-shm-usage')
 options.add_argument('--user-agent=Mozilla/5.0 (X11; Linux x86_64; rv:61.0) Gecko/20100101 Firefox/61.0')
 
-base_url = 'https://suumo.jp/jj/chintai/ichiran/FR301FC001/?ar=030&bs=040&ra=013&cb=0.0&ct=9999999&et=9999999&cn=9999999&mb=0&mt=9999999&shkr1=03&shkr2=03&shkr3=03&shkr4=03&fw2=&ek=012520110&rn=0125&srch_navi=1'
+url = "https://suumo.jp/jj/chintai/ichiran/FR301FC001/?ar=030&bs=040&ra=013&cb=0.0&ct=9999999&et=9999999&cn=9999999&mb=0&mt=9999999&shkr1=03&shkr2=03&shkr3=03&shkr4=03&fw2=&ek=012520110&rn=0125&srch_navi=1%27&page={}"
+
+for i in range(1,4):
+    target_url= url.format(i) 
+    #print(target_url)
+    sleep(1)
+   
 
 driver = webdriver.Chrome('chromedriver',options=options)
-driver.get(base_url)
+driver.get(target_url)
 
-#
 
 df = pd.DataFrame()
 name=[]
@@ -60,5 +67,3 @@ for casset in driver.find_elements(By.CLASS_NAME, 'cassetteitem'):
         print(df)
 
         df.to_csv("utf8.data1.csv", mode="w", index=False) 
-       
-
