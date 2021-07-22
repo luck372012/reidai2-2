@@ -1,7 +1,6 @@
 #モジュールのインポート
-from bs4 import BeautifulSoup
 from time import sleep
-import requests
+import openpyxl
 import datetime
 import sys
 import pandas as pd
@@ -63,4 +62,6 @@ for i in range(1,4):
        
             print(df)
 
-            df.to_csv("utf8.data1.csv", mode="w", index=False) 
+            #df.to_csv("utf8.data1.csv", mode="w", index=False) 
+
+            df.to_excel("out.xlsx", sheet_name="suumo", index=True, header=True)
