@@ -1,4 +1,16 @@
 #モジュールのインポート
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+ 
+options = webdriver.ChromeOptions()
+options.add_argument('--headless')
+# webdriver格納パスを指定する場合
+custom_path = "./chromedriver/"
+# webdriver.exeのパス
+driver_path = ChromeDriverManager(path=custom_path).install()
+driver = webdriver.Chrome(driver_path, options=options)
+
+
 from time import sleep
 import datetime
 import sys
@@ -9,9 +21,6 @@ import gspread
 import json
 from google.oauth2.service_account import Credentials
 from gspread_dataframe import get_as_dataframe, set_with_dataframe
-#
-import gspread_asyncio
-#
 
 sys.path.insert(0,'/usr/lib/chromium-browser/chromedriver')
 from selenium import webdriver
@@ -30,6 +39,7 @@ options.add_argument('--headless')
 options.add_argument('--no-sandbox')
 options.add_argument('--disable-dev-shm-usage')
 options.add_argument('--user-agent=Mozilla/5.0 (X11; Linux x86_64; rv:61.0) Gecko/20100101 Firefox/61.0')
+
 
 df = pd.DataFrame()
 name=[]
@@ -53,16 +63,13 @@ workbook = gc.open_by_key('1pOJobvUDVLulU_N3NLpBC2u89adkICXsAzwxP-AaNww')
 worksheet = gc.open("suumo").get_worksheet(1)
 
 #
-async def simple_gspread_asyncio(agcm):
-    agc = await agcm.authorize()
-    workbook = await agc.open_by_url("https://docs.google.com/spreadsheets/d/1pOJobvUDVLulU_N3NLpBC2u89adkICXsAzwxP-AaNww/")
-    worksheet = await workbook.get_worksheet(0) 
-#
+
+
 
 # main処理
 url = "https://suumo.jp/jj/chintai/ichiran/FR301FC001/?ar=030&bs=040&ra=013&cb=0.0&ct=9999999&et=9999999&cn=9999999&mb=0&mt=9999999&shkr1=03&shkr2=03&shkr3=03&shkr4=03&fw2=&ek=012520110&rn=0125&srch_navi=1%27&page={}"
 
-for i in range(1,2):
+for i in range(1,4):
     target_url= url.format(i) 
     #print(target_url)
     sleep(1)
@@ -92,10 +99,13 @@ for i in range(1,2):
                     {'物件名': name, '家賃': rent.text, '敷金': deposit.text,
                      '礼金': gratuity.text}, ignore_index=True) 
             print(df)
-            #CSV出力
-            #df.to_csv("data1.csv", mode="w", index=False, encoding='cp932') 
-            #excel出力
-            #df.to_excel('data1.xlsx', sheet_name='suumo', index=False)
-            #スプレッドシート出力      
-            update_sheet = workbook.worksheet("シート1")
-            set_with_dataframe(update_sheet, df,resize=True, include_index=False)
+
+            
+#CSV出力
+#df.to_csv("data1.csv", mode="w", index=False, encoding='cp932') 
+#excel出力
+#df.to_excel('data1.xlsx', sheet_name='suumo', index=False)
+#スプレッドシート出力
+print(df)      
+update_sheet = workbook.worksheet("シート1")
+set_with_dataframe(update_sheet, df,resize=True, include_index=False)
