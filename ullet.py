@@ -46,6 +46,7 @@ options.add_argument('--user-agent=Mozilla/5.0 (X11; Linux x86_64; rv:61.0) Geck
 
 df = pd.DataFrame()
 names=[]
+links=[]
 
 #Googleスプレッドシートの初期化
 SCOPES = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
@@ -62,7 +63,7 @@ worksheet = gc.open("ullet").get_worksheet(1)
 # main処理
 url = "http://www.ullet.com/search.html#page/{}"
 
-for i in range(1,3):
+for i in range(1,4):
     target_url= url.format(i) 
     print(target_url)
     sleep(1)
@@ -72,9 +73,20 @@ for i in range(1,3):
 #会社名を取得してくる
     table = driver.find_elements_by_tag_name("table")[1] 
     class_names=table.find_elements_by_class_name("company_name")
-    for name in class_names:     
-        print(name.text)
+    for name in class_names:
+        print(name.get_attribute("href"))
+        links.append(name.get_attribute("href"))    
+        print(links)
      
+      
+    for link in links: 
+        driver.get(link)
+        name=driver.find_element_by_id("company_name0")
+        print(name.text)
+
+
+
+
         df = df.append(
                     {'会社名': name.text}, ignore_index=True) 
 
@@ -82,9 +94,9 @@ for i in range(1,3):
 
 
 #CSV出力
-df.to_csv("data1.csv", mode="w", index=False, encoding='cp932') 
+#df.to_csv("data1.csv", mode="w", index=False, encoding='cp932') 
 #excel出力
-df.to_excel('data1.xlsx', sheet_name='ullet', index=False)
+#df.to_excel('data1.xlsx', sheet_name='ullet', index=False)
 
 #スプレッドシート出力
 #print(df)      
