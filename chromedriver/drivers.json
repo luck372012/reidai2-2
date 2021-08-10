@@ -4,7 +4,7 @@
         "binary_path": "./chromedriver/\\drivers\\chromedriver\\win32\\92.0.4515.43\\chromedriver.exe"
     },
     "win32_chromedriver_92.0.4515.107_for_92.0.4515": {
-        "timestamp": "29/07/2021",
+        "timestamp": "09/08/2021",
         "binary_path": "./chromedriver/\\drivers\\chromedriver\\win32\\92.0.4515.107\\chromedriver.exe"
     }
 }
