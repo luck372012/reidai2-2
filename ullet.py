@@ -95,24 +95,24 @@ for i in range(1,2):
         sales = trs[1].find_elements_by_tag_name("td")[0] 
         sales.text.split("兆円")
         #print((float(sales.text.split("兆円")[0]))*1000000000000)
-        sales=(str((float(sales.text.split("兆円")[0]))*1000000000000))
+        sales=(int((float(sales.text.split("兆円")[0]))*1000000000000))
        
         #純利益を出力する
         incomes = trs[1].find_elements_by_tag_name("td")[1] 
         #print(incomes.text)
         if "兆円" in incomes.text:
             incomes.text.split("兆円")
-            incomes=(str((float(incomes.text.split("兆円")[0]))*1000000000000))
+            incomes=(int((float(incomes.text.split("兆円")[0]))*1000000000000))
 
         elif "億円" in incomes.text:    
             incomes.text.split("億円")
-            incomes=(str((float(incomes.text.split("億円")[0]))*100000000))
+            incomes=(int((float(incomes.text.split("億円")[0]))*100000000))
 
 
         #総資産を出力する
         assets = trs[1].find_elements_by_tag_name("td")[3] 
         assets.text.split("兆円")
-        assets=(str((float(assets.text.split("兆円")[0]))*1000000000000))
+        assets=(int((float(assets.text.split("兆円")[0]))*1000000000000))
 
         df = df.append(
                     {'会社名': name.text, '売上高': sales, '純利益': incomes,
